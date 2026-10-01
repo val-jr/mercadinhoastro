@@ -6,6 +6,9 @@ import com.dev.mercadinhoastro.web.model.ClienteModel;
 import com.dev.mercadinhoastro.web.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ClienteService {
 
@@ -22,5 +25,14 @@ public class ClienteService {
         ClienteModel cliente = clienteRepository.save(clienteModel);
 
         return clienteMapper.map(cliente);
+    }
+
+    public List<ClienteDTO> listarClientes(){
+
+        List<ClienteModel> clientes = clienteRepository.findAll();
+
+        return clientes.stream()
+                .map(clienteMapper::map)
+                .collect(Collectors.toList());
     }
 }
