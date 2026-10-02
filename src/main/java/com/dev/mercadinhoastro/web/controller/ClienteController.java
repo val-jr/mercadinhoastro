@@ -40,6 +40,12 @@ public class ClienteController {
         ClienteDTO clienteDTO = clienteService.buscarClientePorId(id);
         return ResponseEntity.ok(clienteDTO);
     }
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable Long id, @RequestBody @Valid ClienteDTO cliente) {
+        ClienteDTO clienteDTO = clienteService.atualizarCliente(id, cliente);
+        return ResponseEntity.ok(clienteDTO);
+    }
+
     @DeleteMapping("/apagarusuario/{id}")
     public ResponseEntity<Void> apagarUsuario(@PathVariable Long id) {
         clienteService.deletarCliente(id);
