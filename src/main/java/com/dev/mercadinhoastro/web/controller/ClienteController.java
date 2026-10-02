@@ -22,15 +22,27 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO cliente){
+    public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO cliente) {
         ClienteDTO clienteDTO = clienteService.cadastrarCliente(cliente);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(clienteDTO);
     }
+
     @GetMapping("/listar")
-    public ResponseEntity<List<ClienteDTO>> listarCliente(){
+    public ResponseEntity<List<ClienteDTO>> listarCliente() {
         List<ClienteDTO> clienteDTO = clienteService.listarClientes();
         return ResponseEntity.ok(clienteDTO);
+    }
+
+    @GetMapping("/buscarporid/{id}")
+    public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Long id) {
+        ClienteDTO clienteDTO = clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(clienteDTO);
+    }
+    @DeleteMapping("/apagarusuario/{id}")
+    public ResponseEntity<Void> apagarUsuario(@PathVariable Long id) {
+        clienteService.deletarCliente(id);
+        return ResponseEntity.noContent().build();
     }
 }
